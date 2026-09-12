@@ -400,23 +400,66 @@ footer {
 /* --- Responsive Design (Mobile Friendly) --- */
 @media screen and (max-width: 768px) {
     .nav-links {
-        display: none;
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 280px;
+        height: 100vh;
+        display: flex;
         flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
+        align-items: flex-start;
         background-color: var(--white);
-        padding: 2rem 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        padding: 90px 2rem 2rem;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.9rem 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid var(--light-blue);
+    }
+
+    .nav-links a:hover {
+        color: var(--primary-blue);
+    }
+
+    .nav-links .btn-nav {
+        background: none;
+        color: var(--primary-blue) !important;
+        padding: 0.9rem 0;
+        border-radius: 0;
+        font-size: 1.1rem;
     }
 
     .nav-links.active {
-        display: flex;
+        right: 0;
+    }
+
+    .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0,0,0,0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 999;
+    }
+
+    .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
     }
 
     .menu-toggle {
         display: block;
+        z-index: 1001;
     }
 
     .hero h1 {

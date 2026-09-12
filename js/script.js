@@ -1,33 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mobile Menu Toggle
+    // 1. Mobile Sidebar Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
+    const navOverlay = document.getElementById('nav-overlay');
     const menuIcon = mobileMenuBtn.querySelector('i');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        
-        // Ubah icon hamburger ke X saat menu terbuka
-        if (navLinks.classList.contains('active')) {
+    const setMenuState = (open) => {
+        navLinks.classList.toggle('active', open);
+        navOverlay.classList.toggle('active', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+
+        if (open) {
             menuIcon.classList.remove('bi-list');
             menuIcon.classList.add('bi-x-lg');
         } else {
             menuIcon.classList.remove('bi-x-lg');
             menuIcon.classList.add('bi-list');
         }
+    };
+
+    mobileMenuBtn.addEventListener('click', () => {
+        setMenuState(!navLinks.classList.contains('active'));
     });
 
-    // Tutup menu mobile ketika salah satu link diklik
-    const navItems = document.querySelectorAll('.nav-links a');
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                menuIcon.classList.remove('bi-x-lg');
-                menuIcon.classList.add('bi-list');
-            }
-        });
+    // Tutup sidebar ketika salah satu link diklik
+    document.querySelectorAll('.nav-links a').forEach(item => {
+        item.addEventListener('click', () => setMenuState(false));
     });
+
+    // Tutup sidebar ketika overlay diklik
+    navOverlay.addEventListener('click', () => setMenuState(false));
 
     // 2. Navbar Scroll Effect (Tambahkan border bottom halus saat di-scroll)
     const navbar = document.getElementById('navbar');
