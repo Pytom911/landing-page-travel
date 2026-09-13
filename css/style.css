@@ -104,8 +104,9 @@ ul {
 
 /* --- Hero Section --- */
 .hero {
+    position: relative;
     padding: 180px 5% 100px;
-    background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+    background: url('../asset/hero.jpg') center / cover no-repeat;
     text-align: center;
     min-height: 80vh;
     display: flex;
@@ -113,7 +114,17 @@ ul {
     justify-content: center;
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 0;
+}
+
 .hero-content {
+    position: relative;
+    z-index: 1;
     max-width: 800px;
 }
 
@@ -121,16 +132,16 @@ ul {
     font-size: 3.5rem;
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .hero h1 span {
-    color: var(--primary-blue);
+    color: var(--secondary-blue);
 }
 
 .hero p {
     font-size: 1.1rem;
-    color: var(--text-gray);
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 2.5rem;
 }
 
@@ -154,19 +165,75 @@ ul {
 }
 
 .btn-primary:hover {
-    background-color: transparent;
+    background-color: var(--white);
     color: var(--primary-blue);
+    border-color: var(--white);
 }
 
 .btn-outline {
     background-color: transparent;
-    color: var(--primary-blue);
-    border: 2px solid var(--primary-blue);
+    color: var(--white);
+    border: 2px solid var(--white);
 }
 
 .btn-outline:hover {
-    background-color: var(--primary-blue);
-    color: var(--white);
+    background-color: var(--white);
+    color: var(--primary-blue);
+}
+
+/* --- Load Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.navbar {
+    animation: fadeDown 0.7s ease both;
+}
+
+.hero-content h1 {
+    animation: fadeInUp 0.9s ease both;
+    animation-delay: 0.15s;
+}
+
+.hero-content p {
+    animation: fadeInUp 0.9s ease both;
+    animation-delay: 0.35s;
+}
+
+.hero-content .hero-btns {
+    animation: fadeInUp 0.9s ease both;
+    animation-delay: 0.55s;
+}
+
+.whatsapp-float {
+    animation: fadeIn 0.8s ease 0.8s both;
 }
 
 /* --- Section Global --- */
@@ -397,6 +464,15 @@ footer {
     color: white;
 }
 
+/* --- Reduced Motion (Aksesibilitas) --- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 /* --- Responsive Design (Mobile Friendly) --- */
 @media screen and (max-width: 768px) {
     .nav-links {
@@ -464,6 +540,11 @@ footer {
 
     .hero h1 {
         font-size: 2.5rem;
+    }
+
+    .hero {
+        padding: 150px 5% 80px;
+        min-height: 70vh;
     }
 
     .hero-btns {
